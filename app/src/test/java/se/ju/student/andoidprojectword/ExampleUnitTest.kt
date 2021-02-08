@@ -1,4 +1,4 @@
-package se.ju.student.andoidproject
+package se.ju.student.andoidprojectword
 
 import org.junit.Test
 
