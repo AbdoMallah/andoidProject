@@ -8,4 +8,6 @@
     <string name="forget_password">Forget Password? Click Here</string>
     <string name="email_hint">example@example.com</string>
     <string name="password_hint">*********</string>
+    <string name="login_button">Login</string>
+    <string name="new_user_text_view">New User? Register Here</string>
 </resources>
