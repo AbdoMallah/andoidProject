@@ -109,7 +109,8 @@
         app:layout_constraintTop_toBottomOf="@+id/login_button"
         android:text="@string/new_user_text_view"
         android:textSize="15sp"
-        />
+        android:onClick="toCreateAccountActivityOnClick"
+        tools:ignore="OnClick" />
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -126,7 +127,8 @@
             app:layout_constraintTop_toBottomOf="@+id/new_user_text_view"
             android:layout_margin="5dp"
             android:onClick="facebookLoginOnClick"
-            tools:ignore="OnClick" />
+            tools:ignore="OnClick"
+            android:contentDescription="@string/login_with_facebook_account" />
         <ImageButton
             android:id="@+id/google_icon"
             android:layout_width="wrap_content"
@@ -137,7 +139,39 @@
             app:layout_constraintTop_toBottomOf="@+id/new_user_text_view"
             android:layout_margin="5dp"
             android:onClick="googleLoginOnClick"
-            tools:ignore="OnClick" />
+            tools:ignore="OnClick"
+            android:contentDescription="@string/login_with_google_account" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <ImageButton
+            android:id="@+id/sweden_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_sweden"
+            android:layout_margin="5dp"
+            android:onClick="swedenLanguageOnClick"
+            tools:ignore="OnClick"
+            android:contentDescription="@string/change_language_to_swedish" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/slash"
+            android:textSize="30sp"
+            android:textColor="@color/black"/>
+        <ImageButton
+            android:id="@+id/united_kingdom_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_united_kingdom"
+            android:layout_margin="5dp"
+            android:onClick="englishLanguageOnClick"
+            tools:ignore="OnClick"
+            android:contentDescription="@string/change_language_to_english" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

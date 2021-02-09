@@ -6,8 +6,16 @@
     <string name="sign_in_button">Sign In</string>
     <string name="sign_up_button">Sign Up</string>
     <string name="forget_password">Forget Password? Click Here</string>
-    <string name="email_hint">example@example.com</string>
-    <string name="password_hint">*********</string>
+    <string name="email_hint" translatable="false">example@example.com</string>
+    <string name="password_hint" translatable="false">*********</string>
     <string name="login_button">Login</string>
-    <string name="new_user_text_view">New User? Register Here</string>
+    <string name="new_user_text_view">New User? Create New An Account Here</string>
+    <string name="slash">/</string>
+    <string name="change_language_to_swedish">Change Language to swedish</string>
+    <string name="change_language_to_english">Change language to English</string>
+    <string name="login_with_google_account">Login with Google account</string>
+    <string name="login_with_facebook_account">Login with Facebook account</string>
+    <string name="new_password">New Password</string>
+    <string name="new_password_repeat">Repeat The New Password</string>
+    <string name="create_button">Create Account</string>
 </resources>
