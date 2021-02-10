@@ -15,7 +15,16 @@
     <string name="change_language_to_english">Change language to English</string>
     <string name="login_with_google_account">Login with Google account</string>
     <string name="login_with_facebook_account">Login with Facebook account</string>
-    <string name="new_password">New Password</string>
+    <string name="new_password">New Password (At Least 6 Characters)</string>
     <string name="new_password_repeat">Repeat The New Password</string>
     <string name="create_button">Create Account</string>
+    <string name="full_name">FullName</string>
+    <string name="full_name_hint" translatable="false">Carl Petersson</string>
+    <string name="forget_password_text_view">Did you forget the password?</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="verification_code_hint" translatable="false">12345</string>
+    <string name="send_code_text">We have sent you an e-mail with the verification code</string>
+    <string name="send">Send</string>
+    <string name="logo_description">Logo</string>
+    <string name="resend_code_text">Click here to resend the code</string>
 </resources>

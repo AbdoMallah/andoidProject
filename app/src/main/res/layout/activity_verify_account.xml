@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".VerifyAccountActivity">
+
+        <ImageView
+            android:id="@+id/logo_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_memory_keeper_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/send_code_text_view"
+            android:contentDescription="@string/logo_description" />
+        <TextView
+            android:id="@+id/send_code_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/logo_image_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/send_code_text"
+            android:textColor="@color/black"
+            android:layout_margin="5dp"
+            />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/verify_code_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/send_code_text_view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="vertical"
+                android:layout_margin="5dp">
+                <TextView
+                    android:id="@+id/verify_code_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/verification_code"
+                    />
+                <EditText
+                    android:id="@+id/verify_code_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/verify_code_text_view"
+                    android:hint="@string/verification_code_hint"
+                    android:inputType="number"
+                    android:background="@drawable/edit_text_border"
+                    android:padding="10dp"
+                    android:importantForAutofill="no" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <Button
+                android:id="@+id/send_code_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/send"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/verify_code_linear_layout"
+                android:layout_margin="5dp"
+                />
+            <TextView
+                android:id="@+id/resend_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resend_code_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/send_code_button"
+                android:textColor="@color/blue"
+                android:onClick="resendVerificationCode"
+                tools:ignore="OnClick"
+                android:padding="10dp"
+                android:textSize="15sp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

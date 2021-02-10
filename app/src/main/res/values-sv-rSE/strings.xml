@@ -8,13 +8,20 @@
     <string name="sign_up_button">"Skapa "</string>
     <string name="forget_password">Glömt Lösenord? Klick här</string>
     <string name="login_button">"Logga in "</string>
-    <string name="new_user_text_view">Ny Användare? skapa ett nytt konto Här</string>
+    <string name="new_user_text_view">Ny Användare? Skapa ett nytt konto Här</string>
     <string name="slash">/</string>
     <string name="change_language_to_swedish">Byt till Svenska Språket</string>
     <string name="change_language_to_english">Byt till Engelska Språket</string>
     <string name="login_with_google_account">Logga in med Google konto</string>
     <string name="login_with_facebook_account">Logga in med Facebook konto</string>
-    <string name="new_password">Nytt Lösenord</string>
+    <string name="new_password">Nytt Lösenord (Minst 8 karaktär)</string>
     <string name="new_password_repeat">Skriv om den nya Lösenord</string>
     <string name="create_button">Skapa Konto</string>
+    <string name="full_name">"Full namn "</string>
+    <string name="forget_password_text_view">Har du glömt lösenordet</string>
+    <string name="verification_code">Verifiering Kod</string>
+    <string name="send_code_text">Vi har skickat ett mejl med veriferings kod</string>
+    <string name="send">Skicka</string>
+    <string name="logo_description">Logo</string>
+    <string name="resend_code_text">" Klicka här för att skicka koden igen"</string>
 </resources>
