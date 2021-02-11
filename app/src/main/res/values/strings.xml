@@ -28,4 +28,7 @@
     <string name="logo_description">Logo</string>
     <string name="resend_code_text">Click here to resend the code</string>
     <string name="empty_field">You can\'t send with empty field</string>
+    <string name="password_validation_error">The password must be 8-20 characters </string>
+    <string name="email_validation_error">The email must contains ( @ and point ).</string>
+    <string name="empty_field_error">This field can\'t be empty</string>
 </resources>

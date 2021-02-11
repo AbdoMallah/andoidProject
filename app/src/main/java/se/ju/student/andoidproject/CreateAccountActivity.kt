@@ -24,57 +24,23 @@ class CreateAccountActivity : AppCompatActivity() {
         val createButton = findViewById<Button>(R.id.create_button)
         val validationErrorArray = mutableListOf<String>()
         //val minFirstNameChararchets = 2
-        if( checkEmailIsValid("example@studnet.ju.com")){
-            Log.d("Nice", "Works")
-        }else{
-            Log.d("bad", "don't work")
-        }
+
 
         createButton.setOnClickListener {
-            val firstNameInput = findViewById<EditText>(R.id.first_name_input).editableText.toString()
-            val lastNameInput = findViewById<EditText>(R.id.last_name_input).editableText.toString()
-            val emailInput = findViewById<EditText>(R.id.email_input).editableText.toString()
-            val passwordInput = findViewById<EditText>(R.id.password_input).editableText.toString()
-            val repeatPasswordInput = findViewById<EditText>(R.id.password_repeat_input).editableText.toString()
+            val firstNameInput = findViewById<EditText>(R.id.first_name_input)
+            val lastNameInput = findViewById<EditText>(R.id.last_name_input)
+            val emailInput = findViewById<EditText>(R.id.email_input)
+            val passwordInput = findViewById<EditText>(R.id.password_input)
+            val repeatPasswordInput = findViewById<EditText>(R.id.password_repeat_input)
+
             when {
-                firstNameInput.isNotEmpty() &&
-                lastNameInput.isNotEmpty() &&
-                emailInput.isNotEmpty() &&
-                passwordInput.isNotEmpty() &&
-                repeatPasswordInput.isNotEmpty() -> {
-                    if(firstNameInput.length < MINIMUM_FIRSTNAME_CHARACTERS){
-                        validationErrorArray.add("Your first name is to short ("+ MINIMUM_FIRSTNAME_CHARACTERS +"characters at least)")
-                    }
-                    if(firstNameInput.length > MAXIMUM_FIRSTNAME_CHARACTERS){
-                        validationErrorArray.add("Your first name is to LONG ("+ MAXIMUM_FIRSTNAME_CHARACTERS +"characters max)")
-                    }
-                    if(firstNameInput.length < MINIMUM_LASTNAME_CHARACTERS){
-                        validationErrorArray.add("Your last name is to short ("+ MINIMUM_LASTNAME_CHARACTERS +"characters at least)")
-                    }
-                    if(firstNameInput.length > MAXIMUM_LASTNAME_CHARACTERS){
-                        validationErrorArray.add("Your last name is to LONG ("+ MAXIMUM_LASTNAME_CHARACTERS +"characters max)")
-                    }
-                    if(!emailInput.contains("@")){
-                        /* Add Validation Error To validationErrorArray*/
-                        validationErrorArray.add("Email must to contain @ symbol")
-                    }
-                    if(passwordInput.length >= MINIMUM_PASSWORD_CHARACTERS){
-                        if(passwordInput != repeatPasswordInput){
-                            /* Add Validation Error To validationErrorArray*/
-                            validationErrorArray.add("Passwords do not match with each other ")
-                        }
-                    }else{
-                        validationErrorArray.add("Password must be at least 6 characters")
-                    }
+                checkFirstnameIsValid(firstNameInput) && checkLastnameIsValid(lastNameInput)
+                        && checkEmailIsValid(emailInput) && checkPasswordIsValid(passwordInput, repeatPasswordInput) -> {
+                    Log.d("Validation", "Very Good")
 
                 }
-                else -> {
-                    Log.d("validation", resources.getString(R.string.empty_field))
-                }
             }
-            for (error in validationErrorArray){
-                Log.d("validation", error)
-            }
+
 
 
             /*
@@ -85,10 +51,12 @@ class CreateAccountActivity : AppCompatActivity() {
             *  */
 
 
-            startActivity(
-                Intent(this, VerifyAccountActivity::class.java)
+            /*startActivity(
+                    Intent(this, VerifyAccountActivity::class.java)
             )
             finish()
+            */
+
         }
 
     }
@@ -96,24 +64,83 @@ class CreateAccountActivity : AppCompatActivity() {
     /*
     * Check email is valid
     * Boolean : True if email is valid and false if not
-    * checkEmailIsValid(string)
+    * checkEmailIsValid(EditText)
     * */
-    private fun checkEmailIsValid(enteredEmail: String): Boolean {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(enteredEmail).matches()
+    private fun checkEmailIsValid(emailInput: EditText): Boolean {
+        val theEmail = emailInput.editableText.toString()
+        var emailIsGood = false
+        if (theEmail.isNotEmpty()) {
+            if(android.util.Patterns.EMAIL_ADDRESS.matcher(theEmail).matches())
+                emailIsGood = true
+            else{
+                emailInput.error = getString(R.string.email_validation_error)
+            }
+        }else{
+            emailInput.error = getString(R.string.empty_field_error)
+        }
+        return emailIsGood
     }
-    private fun checkPassword(enteredPassword: EditText, enteredNewPassword:EditText): Boolean {
-        val password = enteredPassword.editableText.toString()
-        val newPass = enteredNewPassword.editableText.toString()
+    /*
+     * checkPassword: BOOLEAN.
+     * Return true if the password is following the conditions.
+     * checkPassword(EditText, EditText)
+     * */
+    private fun checkPasswordIsValid(passwordInput: EditText, repeatedPasswordInput: EditText): Boolean {
+        val thePassword = passwordInput.editableText.toString()
+        val repeatedPassword = repeatedPasswordInput.editableText.toString()
+        var passwordIsGood = false
         when {
-            password.isNotEmpty() && newPass.isNotEmpty() -> {
-                if(password.length >= MINIMUM_PASSWORD_CHARACTERS){
-                    enteredPassword.setError("test1231241")
+            thePassword.isEmpty() && repeatedPassword.isEmpty() -> {
+                passwordInput.error = getString(R.string.empty_field_error)
+                repeatedPasswordInput.error = getString(R.string.empty_field_error)
+            }
+            else -> {
+                if (thePassword.length >= MINIMUM_PASSWORD_CHARACTERS) {
+                    if (thePassword == repeatedPassword)
+                        passwordIsGood = true
+                }else{
+                    passwordInput.error = getString(R.string.password_validation_error)
                 }
             }
         }
-        /*FIx IT*/
-        return true
+        return passwordIsGood
     }
-
-
+    /*
+    * checkTheFirstName: BOOLEAN
+    * Return true if the first name is following the conditions
+    * checkTheFirstname(EditText)
+    * */
+    private fun checkFirstnameIsValid(firstnameInput: EditText): Boolean {
+        var nameIsGood = false
+        val theFirstname = firstnameInput.editableText.toString()
+        when {
+            theFirstname.isEmpty() -> {
+                if (theFirstname.length < MINIMUM_FIRSTNAME_CHARACTERS || theFirstname.length > MAXIMUM_FIRSTNAME_CHARACTERS)
+                    firstnameInput.error = getString(R.string.empty_field_error)
+            }
+            else -> {
+                nameIsGood = true
+            }
+        }
+        return nameIsGood
+    }
+    /*
+    * checkTheLastName: BOOLEAN.
+    * Return true if the last name is following the conditions.
+    * checkTheLastName(EditText)
+    * */
+    private fun checkLastnameIsValid(lastnameInput: EditText): Boolean {
+        var nameIsGood = false
+        val theLastname = lastnameInput.editableText.toString()
+        when {
+            theLastname.isEmpty() -> {
+                if (theLastname.length < MINIMUM_LASTNAME_CHARACTERS || theLastname.length > MAXIMUM_LASTNAME_CHARACTERS)
+                    lastnameInput.error = getString(R.string.empty_field_error)
+            }
+            else -> {
+                nameIsGood = true
+            }
+        }
+        return nameIsGood
+    }
 }
