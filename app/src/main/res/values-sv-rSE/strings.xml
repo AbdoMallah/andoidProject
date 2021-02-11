@@ -24,4 +24,5 @@
     <string name="send">Skicka</string>
     <string name="logo_description">Logo</string>
     <string name="resend_code_text">" Klicka här för att skicka koden igen"</string>
+    <string name="empty_field">Du kan inte skicka med tomma fält</string>
 </resources>

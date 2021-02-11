@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity() {
 
             val emailInput = binding.emailInput.editableText.toString()
             val passwordInput = binding.passwordInput.editableText.toString()
-
-
             /*
             * ============================
             * Check The Entered Value with the firebase value
@@ -45,13 +43,17 @@ class MainActivity : AppCompatActivity() {
         Log.d("google", "Hi From Google")
     }
     /* Change Language To English */
-    fun englishLanguageOnClick(view: View) {}
+    fun englishLanguageOnClick(view: View) {
+
+    }
 
     /* Change Language To Swedish */
-    fun swedenLanguageOnClick(view: View) {}
+    fun swedenLanguageOnClick(view: View) {
+
+    }
     /*Open Create Account Activity*/
     fun toCreateAccountActivityOnClick(view: View) {
-        val btn = findViewById<TextView>(R.id.new_user_text_view)
+        val btn = findViewById<Button>(R.id.new_user_button)
 
         btn.setOnClickListener {
             startActivity(

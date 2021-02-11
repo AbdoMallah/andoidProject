@@ -27,4 +27,5 @@
     <string name="send">Send</string>
     <string name="logo_description">Logo</string>
     <string name="resend_code_text">Click here to resend the code</string>
+    <string name="empty_field">You can\'t send with empty field</string>
 </resources>
