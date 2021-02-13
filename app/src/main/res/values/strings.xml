@@ -18,8 +18,8 @@
     <string name="new_password">New Password (At Least 6 Characters)</string>
     <string name="new_password_repeat">Repeat The New Password</string>
     <string name="create_button">Create Account</string>
-    <string name="full_name">FullName</string>
-    <string name="full_name_hint" translatable="false">Carl Petersson</string>
+    <string name="lastname">Lastname</string>
+    <string name="first_name_hint" translatable="false">Carl Petersson</string>
     <string name="forget_password_text_view">Did you forget the password?</string>
     <string name="verification_code">Verification Code</string>
     <string name="verification_code_hint" translatable="false">12345</string>
@@ -31,4 +31,6 @@
     <string name="password_validation_error">The password must be 8-20 characters </string>
     <string name="email_validation_error">The email must contains ( @ and point ).</string>
     <string name="empty_field_error">This field can\'t be empty</string>
+    <string name="password_match_error">The passwords don\'t match!</string>
+    <string name="firstname">Firstname</string>
 </resources>

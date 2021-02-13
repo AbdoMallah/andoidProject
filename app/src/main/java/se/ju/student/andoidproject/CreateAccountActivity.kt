@@ -98,6 +98,8 @@ class CreateAccountActivity : AppCompatActivity() {
                 if (thePassword.length >= MINIMUM_PASSWORD_CHARACTERS) {
                     if (thePassword == repeatedPassword)
                         passwordIsGood = true
+                    else
+                        passwordInput.error = getString(R.string.password_match_error)
                 }else{
                     passwordInput.error = getString(R.string.password_validation_error)
                 }
