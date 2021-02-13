@@ -45,7 +45,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/first_name_texT_view"
-                android:hint="@string/first_name_hint"
+                android:hint="@string/firstname_hint"
                 android:inputType="text"
                 android:background="@drawable/edit_text_border"
                 android:padding="10dp"
@@ -57,7 +57,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/last_name_input"
-                android:text="@string/full_name"
+                android:text="@string/lastname"
                 />
             <EditText
                 android:id="@+id/last_name_input"
@@ -66,7 +66,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/last_name_texT_view"
-                android:hint="@string/full_name_hint"
+                android:hint="@string/lastname_hint"
                 android:inputType="text"
                 android:background="@drawable/edit_text_border"
                 android:padding="10dp"

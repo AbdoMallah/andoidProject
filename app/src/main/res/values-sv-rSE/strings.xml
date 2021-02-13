@@ -17,7 +17,6 @@
     <string name="new_password">Nytt Lösenord (Minst 8 karaktär)</string>
     <string name="new_password_repeat">Skriv om den nya Lösenord</string>
     <string name="create_button">Skapa Konto</string>
-    <string name="full_name">"Full namn "</string>
     <string name="forget_password_text_view">Har du glömt lösenordet</string>
     <string name="verification_code">Verifiering Kod</string>
     <string name="send_code_text">Vi har skickat ett mejl med veriferings kod</string>
@@ -25,4 +24,12 @@
     <string name="logo_description">Logo</string>
     <string name="resend_code_text">" Klicka här för att skicka koden igen"</string>
     <string name="empty_field">Du kan inte skicka med tomma fält</string>
+    <string name="lastname">Efternamn</string>
+    <string name="password_validation_error">Lösenordet Måste vara 8-20 karaktärer</string>
+    <string name="email_validation_error">Mejlen måste innehålla ( @ och punkt)</string>
+    <string name="empty_field_error">Fälterna kan inte vara tomma</string>
+    <string name="password_match_error">Lösenorden matchar inte</string>
+    <string name="firstname">Förrnamn</string>
+    <string name="firstname_validation_error">"Förrnamn måste vara 2-20 karaktärer "</string>
+    <string name="lastname_validation_error">Efternamn måste vara 2-20 karaktärer</string>
 </resources>

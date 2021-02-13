@@ -33,13 +33,11 @@ class CreateAccountActivity : AppCompatActivity() {
             val passwordInput = findViewById<EditText>(R.id.password_input)
             val repeatPasswordInput = findViewById<EditText>(R.id.password_repeat_input)
 
-            when {
-                checkFirstnameIsValid(firstNameInput) && checkLastnameIsValid(lastNameInput)
-                        && checkEmailIsValid(emailInput) && checkPasswordIsValid(passwordInput, repeatPasswordInput) -> {
-                    Log.d("Validation", "Very Good")
+            checkFirstnameIsValid(firstNameInput)
+            checkLastnameIsValid(lastNameInput)
+            checkEmailIsValid(emailInput)
+            checkPasswordIsValid(passwordInput, repeatPasswordInput)
 
-                }
-            }
 
 
 
@@ -117,11 +115,12 @@ class CreateAccountActivity : AppCompatActivity() {
         val theFirstname = firstnameInput.editableText.toString()
         when {
             theFirstname.isEmpty() -> {
-                if (theFirstname.length < MINIMUM_FIRSTNAME_CHARACTERS || theFirstname.length > MAXIMUM_FIRSTNAME_CHARACTERS)
-                    firstnameInput.error = getString(R.string.empty_field_error)
+                firstnameInput.error = getString(R.string.empty_field_error)
             }
             else -> {
-                nameIsGood = true
+                if (theFirstname.length < MINIMUM_FIRSTNAME_CHARACTERS || theFirstname.length > MAXIMUM_FIRSTNAME_CHARACTERS)
+                    firstnameInput.error = getString(R.string.firstname_validation_error)
+                else nameIsGood = true
             }
         }
         return nameIsGood
@@ -136,11 +135,12 @@ class CreateAccountActivity : AppCompatActivity() {
         val theLastname = lastnameInput.editableText.toString()
         when {
             theLastname.isEmpty() -> {
-                if (theLastname.length < MINIMUM_LASTNAME_CHARACTERS || theLastname.length > MAXIMUM_LASTNAME_CHARACTERS)
-                    lastnameInput.error = getString(R.string.empty_field_error)
+                lastnameInput.error = getString(R.string.empty_field_error)
             }
             else -> {
-                nameIsGood = true
+                if (theLastname.length < MINIMUM_LASTNAME_CHARACTERS || theLastname.length > MAXIMUM_LASTNAME_CHARACTERS)
+                    lastnameInput.error = getString(R.string.lastname_validation_error)
+                else nameIsGood = true
             }
         }
         return nameIsGood
