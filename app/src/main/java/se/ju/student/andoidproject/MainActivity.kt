@@ -64,5 +64,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun toForgetPasswordActivity(view: View) {}
+    fun toForgetPasswordActivity(view: View) {
+
+
+    }
 }

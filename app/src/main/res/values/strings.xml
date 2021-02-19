@@ -36,4 +36,6 @@
     <string name="lastname_hint" translatable="false">Petersson</string>
     <string name="firstname_validation_error">Firstname must be 2-20 characters</string>
     <string name="lastname_validation_error">"The lastname must be 2-20 characters "</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
