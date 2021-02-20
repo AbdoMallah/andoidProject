@@ -14,7 +14,7 @@
     <string name="change_language_to_english">Byt till Engelska Språket</string>
     <string name="login_with_google_account">Logga in med Google konto</string>
     <string name="login_with_facebook_account">Logga in med Facebook konto</string>
-    <string name="new_password">Nytt Lösenord (Minst 8 karaktär)</string>
+    <string name="new_password">Nytt Lösenord (Minst 6 karaktär)</string>
     <string name="new_password_repeat">Skriv om den nya Lösenord</string>
     <string name="create_button">Skapa Konto</string>
     <string name="forget_password_text_view">Har du glömt lösenordet</string>
@@ -25,7 +25,7 @@
     <string name="resend_code_text">" Klicka här för att skicka koden igen"</string>
     <string name="empty_field">Du kan inte skicka med tomma fält</string>
     <string name="lastname">Efternamn</string>
-    <string name="password_validation_error">Lösenordet Måste vara 8-20 karaktärer</string>
+    <string name="password_validation_error">Lösenordet Måste vara 6-20 karaktärer</string>
     <string name="email_validation_error">Mejlen måste innehålla ( @ och punkt)</string>
     <string name="empty_field_error">Fälterna kan inte vara tomma</string>
     <string name="password_match_error">Lösenorden matchar inte</string>

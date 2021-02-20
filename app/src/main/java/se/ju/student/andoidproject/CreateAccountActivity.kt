@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 
 const val MINIMUM_FIRSTNAME_CHARACTERS = 2
 const val MAXIMUM_FIRSTNAME_CHARACTERS = 20
 const val MINIMUM_LASTNAME_CHARACTERS = 2
 const val MAXIMUM_LASTNAME_CHARACTERS = 20
-const val MINIMUM_PASSWORD_CHARACTERS = 8
-const val MAXIMUM_PASSWORD_CHARACTERS = 50
+const val MINIMUM_PASSWORD_CHARACTERS = 6
+const val MAXIMUM_PASSWORD_CHARACTERS = 20
+private lateinit var auth: FirebaseAuth
 
 open class CreateAccountActivity : AppCompatActivity() {
 
@@ -20,8 +23,10 @@ open class CreateAccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
         supportActionBar?.hide()
+        auth = FirebaseAuth.getInstance()
+
         val createButton = findViewById<Button>(R.id.create_button)
-        val validationErrorArray = mutableListOf<String>()
+        //val validationErrorArray = mutableListOf<String>()
         //val minFirstNameChararchets = 2
 
 
@@ -37,6 +42,17 @@ open class CreateAccountActivity : AppCompatActivity() {
             checkEmailIsValid(emailInput)
             checkPasswordIsValid(passwordInput, repeatPasswordInput)
 
+            auth.createUserWithEmailAndPassword(emailInput.editableText.toString(), passwordInput.editableText.toString()).addOnCompleteListener{
+                task ->
+                if (task.isSuccessful) {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(baseContext, "Test123",
+                            Toast.LENGTH_SHORT).show()
+                }
+
+            }
 
 
 
