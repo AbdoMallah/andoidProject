@@ -36,5 +36,8 @@
     <string name="lastname_hint" translatable="false">Petersson</string>
     <string name="firstname_validation_error">Firstname must be 2-20 characters</string>
     <string name="lastname_validation_error">"The lastname must be 2-20 characters "</string>
+    <string name="home_button">Home</string>
+    <string name="add_button">Add</string>
+    <string name="setting_button">Setting</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
