@@ -45,7 +45,8 @@ open class CreateAccountActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(emailInput.editableText.toString(), passwordInput.editableText.toString()).addOnCompleteListener{
                 task ->
                 if (task.isSuccessful) {
-                    val intent = Intent(this, MainActivity::class.java)
+
+                    val intent = Intent(this, VerifyAccountActivity::class.java)
                     startActivity(intent)
                 } else {
                     Toast.makeText(baseContext, "Test123",
@@ -69,6 +70,7 @@ open class CreateAccountActivity : AppCompatActivity() {
             )
             finish()
             */
+            finish()
 
         }
 
@@ -160,5 +162,11 @@ open class CreateAccountActivity : AppCompatActivity() {
             }
         }
         return nameIsGood
+    }
+    /*
+    * Send A E-mail With the Verification Code to the user
+    * */
+    private fun sendVerificationCodeToUser(enteredEmail: String){
+
     }
 }

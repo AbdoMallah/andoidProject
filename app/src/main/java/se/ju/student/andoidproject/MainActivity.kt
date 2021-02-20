@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(enteredEmail.editableText.toString(), enteredPass.editableText.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+
                     val intent = Intent(this, HomePageActivity::class.java)
                     startActivity(intent)
                 } else {
