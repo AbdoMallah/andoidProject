@@ -130,6 +130,7 @@ class CreateAccountActivity : AppCompatActivity() {
     * Return true if the last name is following the conditions.
     * checkTheLastName(EditText)
     * */
+
     private fun checkLastnameIsValid(lastnameInput: EditText): Boolean {
         var nameIsGood = false
         val theLastname = lastnameInput.editableText.toString()
