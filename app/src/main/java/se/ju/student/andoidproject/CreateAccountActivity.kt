@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import se.ju.student.andoidproject.databinding.ActivityMainBinding
 
 const val MINIMUM_FIRSTNAME_CHARACTERS = 2
 const val MAXIMUM_FIRSTNAME_CHARACTERS = 20
