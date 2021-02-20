@@ -14,7 +14,7 @@ const val MAXIMUM_LASTNAME_CHARACTERS = 20
 const val MINIMUM_PASSWORD_CHARACTERS = 8
 const val MAXIMUM_PASSWORD_CHARACTERS = 50
 
-class CreateAccountActivity : AppCompatActivity() {
+open class CreateAccountActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
