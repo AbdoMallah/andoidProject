@@ -40,5 +40,7 @@
     <string name="sign_up_error">Sign Up Error, Please Try Again</string>
     <string name="email_not_valid">Your Email is not verified</string>
     <string name="wrong_email_password">The Email OR the Password Is Wrong</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="home_button">Home</string>
+    <string name="add_button">Add</string>
+    <string name="setting_button">Setting</string>
 </resources>

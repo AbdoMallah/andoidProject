@@ -61,7 +61,13 @@ class MainActivity : AppCompatActivity() {
 
     /* Login with Facebook Account*/
     fun facebookLoginOnClick(view: View) {
-        Log.d("facebook", "Hi From Facebook")
+        startActivity(Intent
+            (this,HomePageActivity::class.java)
+        )
+    
+
+
+        //Log.d("facebook", "Hi From Facebook")
     }
     /* Login With Google Account*/
     fun googleLoginOnClick(view: View) {
