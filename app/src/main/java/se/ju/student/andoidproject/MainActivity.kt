@@ -1,10 +1,12 @@
 package se.ju.student.andoidproject
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -23,33 +25,34 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         val loginButton = findViewById<Button>(R.id.login_button)
         loginButton.setOnClickListener {
-
             val emailInput = findViewById<EditText>(R.id.email_input)
             val passwordInput = findViewById<EditText>(R.id.password_input)
-            /*
-            * ============================
-            * Check The Entered Value with the firebase value
-            * if True  open HomePageActivity
-            *  else show Validation Error
-            * */
+            closeKeyboard(passwordInput)
             loginEmailAndPass(emailInput, passwordInput)
-
         }
     }
+
+    private fun closeKeyboard(view: View){
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
     /* Login With Email And Password */
-    fun loginEmailAndPass(enteredEmail: EditText, enteredPass: EditText){
+    private fun loginEmailAndPass(enteredEmail: EditText, enteredPass: EditText){
         if(enteredPass.editableText.toString().length < 6){
             enteredPass.error = "Wrong Password"
         }else {
             auth.signInWithEmailAndPassword(enteredEmail.editableText.toString(), enteredPass.editableText.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    if(auth.currentUser?.isEmailVerified == true){
+                        startActivity(Intent(this, HomePageActivity::class.java))
+                    }else{
+                        Toast.makeText(baseContext, getString(R.string.email_not_valid), Toast.LENGTH_LONG).show()
+                    }
 
-                    val intent = Intent(this, HomePageActivity::class.java)
-                    startActivity(intent)
                 } else {
                     checkEmailIsValid(enteredEmail)
-                    Toast.makeText(baseContext, "The Email OR the Password Is Wrong",
+                    Toast.makeText(baseContext, getString(R.string.wrong_email_password),
                             Toast.LENGTH_SHORT).show()
                 }
             }
@@ -76,12 +79,9 @@ class MainActivity : AppCompatActivity() {
     /*Open Create Account Activity*/
     fun toCreateAccountActivityOnClick(view: View) {
         val btn = findViewById<Button>(R.id.new_user_button)
-
         btn.setOnClickListener {
-            startActivity(
-                Intent(this, CreateAccountActivity::class.java)
-            )
-
+            Log.d("Create", "Hi from Create")
+            startActivity(Intent(this, CreateAccountActivity::class.java))
         }
 
 

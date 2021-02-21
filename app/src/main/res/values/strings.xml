@@ -36,5 +36,9 @@
     <string name="lastname_hint" translatable="false">Petersson</string>
     <string name="firstname_validation_error">Firstname must be 2-20 characters</string>
     <string name="lastname_validation_error">"The lastname must be 2-20 characters "</string>
+    <string name="sign_up_success">Sign Up Success. Verification Link sent to the Email</string>
+    <string name="sign_up_error">Sign Up Error, Please Try Again</string>
+    <string name="email_not_valid">Your Email is not verified</string>
+    <string name="wrong_email_password">The Email OR the Password Is Wrong</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

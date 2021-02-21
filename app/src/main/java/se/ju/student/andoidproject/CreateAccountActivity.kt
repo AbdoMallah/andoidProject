@@ -1,9 +1,12 @@
 package se.ju.student.andoidproject
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -36,46 +39,38 @@ open class CreateAccountActivity : AppCompatActivity() {
             val emailInput = findViewById<EditText>(R.id.email_input)
             val passwordInput = findViewById<EditText>(R.id.password_input)
             val repeatPasswordInput = findViewById<EditText>(R.id.password_repeat_input)
-
-            checkFirstnameIsValid(firstNameInput)
-            checkLastnameIsValid(lastNameInput)
-            checkEmailIsValid(emailInput)
-            checkPasswordIsValid(passwordInput, repeatPasswordInput)
-
-            auth.createUserWithEmailAndPassword(emailInput.editableText.toString(), passwordInput.editableText.toString()).addOnCompleteListener{
-                task ->
-                if (task.isSuccessful) {
-
-                    val intent = Intent(this, VerifyAccountActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(baseContext, "Test123",
-                            Toast.LENGTH_SHORT).show()
+            closeKeyboard(repeatPasswordInput)
+            if(checkFirstnameIsValid(firstNameInput) && checkLastnameIsValid(lastNameInput) && checkEmailIsValid(emailInput) && checkPasswordIsValid(passwordInput, repeatPasswordInput)){
+                auth.createUserWithEmailAndPassword(emailInput.editableText.toString(), passwordInput.editableText.toString()).addOnCompleteListener{
+                    task ->
+                    if (task.isSuccessful) {
+                        auth.currentUser?.sendEmailVerification()?.addOnCompleteListener {
+                            task->
+                            if(task.isSuccessful){
+                                val user = auth.currentUser
+                                Toast.makeText(baseContext, getString(R.string.sign_up_success),Toast.LENGTH_LONG).show()
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
+                    }else {
+                        Toast.makeText(baseContext, getString(R.string.sign_up_error), Toast.LENGTH_LONG).show()
+                    }
                 }
-
             }
-
-
-
-            /*
-            * ======================================
-            * Add user info to Firebase
-            * Send An Email To the User With a code.
-            * ======================================
-            *  */
-
-
-            /*startActivity(
-                    Intent(this, VerifyAccountActivity::class.java)
-            )
-            finish()
-            */
-            finish()
-
         }
-
     }
 
+
+    /*
+    * Close keyboard
+    * void closeKeyboard(View)
+    * */
+    private fun closeKeyboard(view: View){
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
     /*
     * Check email is valid
     * Boolean : True if email is valid and false if not
