@@ -44,14 +44,14 @@ open class CreateAccountActivity : AppCompatActivity() {
                 auth.createUserWithEmailAndPassword(emailInput.editableText.toString(), passwordInput.editableText.toString()).addOnCompleteListener{
                     task ->
                     if (task.isSuccessful) {
-                        auth.currentUser?.sendEmailVerification()?.addOnCompleteListener {
-                            task->
-                            if(task.isSuccessful){
-                                val user = auth.currentUser
-                                Toast.makeText(baseContext, getString(R.string.sign_up_success),Toast.LENGTH_LONG).show()
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
-                                finish()
+                        if (auth.currentUser != null) {
+                            auth.currentUser?.sendEmailVerification()?.addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    val user = auth.currentUser
+                                    Toast.makeText(baseContext, getString(R.string.sign_up_success), Toast.LENGTH_LONG).show()
+                                    startActivity(Intent(this, MainActivity::class.java))
+                                    finish()
+                                }
                             }
                         }
                     }else {
