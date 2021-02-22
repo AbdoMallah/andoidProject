@@ -29,8 +29,7 @@ open class CreateAccountActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         val createButton = findViewById<Button>(R.id.create_button)
-        //val validationErrorArray = mutableListOf<String>()
-        //val minFirstNameChararchets = 2
+
 
 
         createButton.setOnClickListener {
