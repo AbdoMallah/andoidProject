@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
+import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -19,24 +21,27 @@ class ForgotPasswordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_forgot_password)
 
         val resetPasswordBtn = findViewById<Button>(R.id.reset_password)
+        auth = FirebaseAuth.getInstance()
         resetPasswordBtn.setOnClickListener {
-
-
+            
         }
 
     }
-}
-private fun checkEmailIsValid(emailInput: EditText): Boolean {
-    val theEmail = emailInput.editableText.toString()
-    var emailIsGood = false
-    if (theEmail.isNotEmpty()) {
-        if(android.util.Patterns.EMAIL_ADDRESS.matcher(theEmail).matches())
-            emailIsGood = true
-        else{
-            emailInput.error = getString(R.string.email_validation_error)
+
+    private fun checkEmailIsValid(emailInput: EditText): Boolean {
+        val theEmail = emailInput.editableText.toString()
+        var emailIsGood = false
+        if (theEmail.isNotEmpty()) {
+            if(android.util.Patterns.EMAIL_ADDRESS.matcher(theEmail).matches())
+                emailIsGood = true
+            else{
+                emailInput.error = getString(R.string.email_validation_error)
+            }
+        }else{
+            emailInput.error = getString(R.string.empty_field_error)
         }
-    }else{
-        emailInput.error = getString(R.string.empty_field_error)
+        return emailIsGood
     }
-    return emailIsGood
 }
+
+
