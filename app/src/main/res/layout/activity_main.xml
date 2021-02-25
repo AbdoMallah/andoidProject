@@ -111,11 +111,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_button"
             app:layout_constraintBottom_toTopOf="@+id/forget_password_text_view"
+            app:cornerRadius="10dp"
             android:text="@string/sign_up_button"
             android:textSize="15sp"
             android:onClick="toCreateAccountActivityOnClick"
             tools:ignore="OnClick"
-            android:textColor="@color/white"
             android:layout_margin="5dp"
             android:padding="5dp"/>
         <TextView

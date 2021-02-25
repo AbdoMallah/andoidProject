@@ -12,6 +12,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import se.ju.student.andoidproject.R.id.forget_password_text_view
+import se.ju.student.andoidproject.R.id.start
 import se.ju.student.andoidproject.databinding.ActivityMainBinding
 
 private lateinit var auth: FirebaseAuth
@@ -88,13 +90,17 @@ class MainActivity : AppCompatActivity() {
         btn.setOnClickListener {
             Log.d("Create", "Hi from Create")
             startActivity(Intent(this, CreateAccountActivity::class.java))
-        }
 
+        }
 
     }
 
     fun toForgetPasswordActivity(view: View) {
-
+        val btn = findViewById<TextView>(forget_password_text_view)
+        btn.setOnClickListener{
+            Log.d("Forgot Password","Hi from forget password")
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
+        }
 
     }
     /*

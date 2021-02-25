@@ -2,15 +2,21 @@
     <!-- Base application theme. -->
     <style name="Theme.AndoidProject" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/grey</item> <!-- Buttons Background color-->
+        <item name="colorPrimaryVariant">@color/grey</item> <!-- Navbar -->
+        <item name="colorOnPrimary">@color/white</item> <!-- Text In The Buttons -->
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/grey</item> <!---->
+        <item name="colorSecondaryVariant">@color/grey</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+    <style name="CustomActivityAnimation" parent="@android:style/Animation">
+        <item name="android:activityOpenEnterAnimation"> @anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation"> @anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation"> @anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation"> @anim/slide_out_right</item>
     </style>
 </resources>

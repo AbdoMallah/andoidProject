@@ -51,4 +51,5 @@
     <string name="hello_world">Hello Square World!</string>
     <string name="enter_your_email_text">Plz Enter Your Email</string>
     <string name="reset_password">Reset Password</string>
+    <string name="forget_password_success">A link to reset your password has been sent to your email</string>
 </resources>

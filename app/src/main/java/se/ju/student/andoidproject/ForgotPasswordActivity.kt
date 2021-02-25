@@ -23,7 +23,17 @@ class ForgotPasswordActivity : AppCompatActivity() {
         val resetPasswordBtn = findViewById<Button>(R.id.reset_password)
         auth = FirebaseAuth.getInstance()
         resetPasswordBtn.setOnClickListener {
-            
+            val emailInput = findViewById<EditText>(R.id.forget_password_activity_edit_text)
+            if(checkEmailIsValid(emailInput)){
+                auth.sendPasswordResetEmail(emailInput.editableText.toString()).addOnCompleteListener{
+                    task->
+                    if(task.isSuccessful){
+                        Toast.makeText(baseContext, getString(R.string.forget_password_success), Toast.LENGTH_LONG).show()
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
+                }
+            }
         }
 
     }
