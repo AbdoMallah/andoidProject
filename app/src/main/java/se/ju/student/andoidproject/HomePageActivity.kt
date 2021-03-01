@@ -11,9 +11,11 @@ class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
+        supportActionBar?.hide()
+        toCreateMemoryActivityOnClick()
     }
 
- fun toCreateMemoryActivityOnClick(view: View){
+ fun toCreateMemoryActivityOnClick(){
      val btn = findViewById<Button>(R.id.add_button)
      btn.setOnClickListener{
          Log.d("Create", "Hi to Create")
