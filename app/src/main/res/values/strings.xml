@@ -52,4 +52,10 @@
     <string name="enter_your_email_text">Plz Enter Your Email</string>
     <string name="reset_password">Reset Password</string>
     <string name="forget_password_success">A link to reset your password has been sent to your email</string>
+    <string name="page_title">Create A Memory</string>
+    <string name="title">Title</string>
+    <string name="description">Description:</string>
+    <string name="location">Location:</string>
+    <string name="date">Date:</string>
+    <string name="notification">Notifications:</string>
 </resources>
