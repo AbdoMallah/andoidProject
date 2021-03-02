@@ -3,17 +3,24 @@ package se.ju.student.andoidproject
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.*
+import android.util.Log
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
+
 class CreateMemoryActivity : AppCompatActivity() {
     lateinit var filepath : Uri
+    var db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_memory)
@@ -39,7 +46,11 @@ class CreateMemoryActivity : AppCompatActivity() {
                     .addOnSuccessListener {po ->
                         pd.dismiss()
                         Toast.makeText(applicationContext,"File Uploaded",Toast.LENGTH_LONG).show()
+                        saveImageInfoToFirebaseCloudFirestore()
+
                         imageRef.downloadUrl.addOnSuccessListener {
+                            it.toString()
+                            Log.d("UploadFile","fileLocation:$it")
                         }
                         setContentView(R.layout.activity_home_page)
 
@@ -54,6 +65,24 @@ class CreateMemoryActivity : AppCompatActivity() {
 
                     }
         }
+    }
+
+    private fun saveImageInfoToFirebaseCloudFirestore() {
+        // Create a new user with a first and last name
+        val user: MutableMap<String, Any> = HashMap()
+        user["first"] = "Ada"
+        user["last"] = "Lovelace"
+        user["born"] = 1815
+
+
+// Add a new document with a generated ID
+        db.collection("users")
+                .add(user)
+                .addOnSuccessListener {
+                    }
+                .addOnFailureListener {
+
+                }
     }
 
     private fun startFileChooser() {
