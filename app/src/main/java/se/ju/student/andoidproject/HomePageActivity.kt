@@ -24,13 +24,12 @@ class HomePageActivity : AppCompatActivity() {
          )
      }
  }
-    fun toSettingsActivityOnClick(view: View){
-        val btn = findViewById<Button>(R.id.setting_button)
-        btn.setOnClickListener{
-            startActivity(Intent
-                (this,SettingsActivity::class.java))
-        }
-    }
+fun toSettingsActivityOnClick(view: View){
+        Log.d("Settings", "Go to Settings")
+        startActivity(Intent
+            (this,SettingsActivity::class.java))
+
+}
 
 fun toHomePageActivityOnClick (view: View){
     val btn = findViewById<Button>(R.id.home_button)

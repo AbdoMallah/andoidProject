@@ -7,18 +7,21 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import se.ju.student.andoidproject.R.id.forget_password_text_view
 import se.ju.student.andoidproject.R.id.start
 import se.ju.student.andoidproject.databinding.ActivityMainBinding
+import java.util.*
 
 private lateinit var auth: FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
+    lateinit var locale: Locale
+    private var currentLanguage = ""
+    private var currentLang: String? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         auth = FirebaseAuth.getInstance()
 
@@ -32,6 +35,9 @@ class MainActivity : AppCompatActivity() {
             closeKeyboard(passwordInput)
             loginEmailAndPass(emailInput, passwordInput)
         }
+
+        currentLanguage = intent.getStringExtra(currentLang).toString()
+
     }
 
     private fun closeKeyboard(view: View){
@@ -77,14 +83,46 @@ class MainActivity : AppCompatActivity() {
     }
     /* Change Language To English */
     fun englishLanguageOnClick(view: View) {
-
+        val btn = findViewById<ImageButton>(R.id.united_kingdom_icon)
+        btn.setOnClickListener {
+            Log.d("English", "Change Language to English")
+            setLocale("en")
+        }
     }
 
     /* Change Language To Swedish */
     fun swedenLanguageOnClick(view: View) {
-
+        val btn = findViewById<ImageButton>(R.id.sweden_icon)
+        btn.setOnClickListener {
+            Log.d("Svenska", "Byt språk till svenska")
+            setLocale("sv")
+        }
     }
-    /*Open Create Account Activity*/
+
+    /*
+    * Change Language fun
+    * setLocale(String)
+    * */
+    private fun setLocale(localeName: String) {
+        if (localeName != currentLanguage) {
+            locale = Locale(localeName)
+            val res = resources
+            val dm = res.displayMetrics
+            val conf = res.configuration
+            conf.locale = locale
+            res.updateConfiguration(conf, dm)
+            val refresh = Intent(
+                    this,
+                    MainActivity::class.java
+            )
+            refresh.putExtra(currentLang, localeName)
+            startActivity(refresh)
+        } else {
+            Toast.makeText(
+                    this@MainActivity, "Language, , already, , selected)!", Toast.LENGTH_SHORT).show();
+        }
+    }
+    /*Open Create Account Activity */
     fun toCreateAccountActivityOnClick(view: View) {
         val btn = findViewById<Button>(R.id.new_user_button)
         btn.setOnClickListener {

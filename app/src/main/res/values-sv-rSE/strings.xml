@@ -32,4 +32,18 @@
     <string name="firstname">Förrnamn</string>
     <string name="firstname_validation_error">"Förrnamn måste vara 2-20 karaktärer "</string>
     <string name="lastname_validation_error">Efternamn måste vara 2-20 karaktärer</string>
+    <string name="sign_up_success">Registrering lyckades. Verideringslänk har skickats till din mejl</string>
+    <string name="sign_up_error">Registrering misslyckades, försök igen</string>
+    <string name="email_not_valid">Din E-mejl är inte veriderad</string>
+    <string name="wrong_email_password">E-mejladressen ELLER lösenordet är inkorrekt</string>
+    <string name="home_button">Hem</string>
+    <string name="add_button">Lägg till</string>
+    <string name="setting_button">Inställningar</string>
+    <string name="change_language">Byt språk</string>
+    <string name="light_dark_mode">Ljust/Mörkt läge</string>
+    <string name="change_mode_to_light">Byt läge till ljust</string>
+    <string name="change_mode_to_dark">Byt läge till mörkt</string>
+
+
+
 </resources>

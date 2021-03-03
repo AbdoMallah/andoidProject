@@ -42,8 +42,13 @@
     <string name="wrong_email_password">The Email OR the Password Is Wrong</string>
     <string name="home_button">Home</string>
     <string name="add_button">Add</string>
-    <string name="setting_button">Setting</string>
+    <string name="setting_button">Settings</string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="change_language">Change language</string>
+    <string name="light_dark_mode">Light/Dark mode</string>
+    <string name="change_mode_to_light">Change mode to light</string>
+    <string name="change_mode_to_dark">Change mode to dark</string>
+
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
@@ -58,4 +63,6 @@
     <string name="location">Location:</string>
     <string name="date">Date:</string>
     <string name="notification">Notifications:</string>
+
+
 </resources>
