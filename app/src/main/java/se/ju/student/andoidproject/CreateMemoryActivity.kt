@@ -60,7 +60,7 @@ class CreateMemoryActivity : AppCompatActivity() {
                          Toast.makeText(applicationContext,po.message,Toast.LENGTH_LONG).show()
                     }
                     .addOnProgressListener {po ->
-                        var progress : Double =(10000.0 * po.bytesTransferred)/ po.totalByteCount
+                        val progress : Double =(10000.0 * po.bytesTransferred)/ po.totalByteCount
                         pd.setMessage("Uploaded ${progress.toInt()} % ")
 
                     }
@@ -70,7 +70,7 @@ class CreateMemoryActivity : AppCompatActivity() {
     private fun saveImageInfoToFirebaseCloudFirestore() {
         // Create a new user with a first and last name
         val user: MutableMap<String, Any> = HashMap()
-        user["first"] = "Ada"
+        user["first"] = "Adaeee"
         user["last"] = "Lovelace"
         user["born"] = 1815
 

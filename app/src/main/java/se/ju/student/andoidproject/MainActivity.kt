@@ -8,13 +8,20 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import se.ju.student.andoidproject.R.id.forget_password_text_view
 import se.ju.student.andoidproject.R.id.start
 import se.ju.student.andoidproject.databinding.ActivityMainBinding
 import java.util.*
 
 private lateinit var auth: FirebaseAuth
+lateinit var mGoogleSignInClient: GoogleSignInClient
+val RC_SIGN_IN = 123
 
 class MainActivity : AppCompatActivity() {
     lateinit var locale: Locale
@@ -35,10 +42,68 @@ class MainActivity : AppCompatActivity() {
             closeKeyboard(passwordInput)
             loginEmailAndPass(emailInput, passwordInput)
         }
-
         currentLanguage = intent.getStringExtra(currentLang).toString()
 
     }
+    override fun onStart() {
+        super.onStart()
+        if(GoogleSignIn.getLastSignedInAccount(this)!=null){
+            startActivity(Intent(this, HomePageActivity::class.java))
+            finish()
+        }
+    }
+
+    fun googleLoginOnClick(view: View){
+        createRequest()
+        signIn()
+    }
+    /* Login With Google Account*/
+    private fun createRequest() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+    }
+
+    private fun signIn() {
+        val signInIntent = mGoogleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Log.d("Success", "signInWithCredential:success")
+                        val user = auth.currentUser
+                        startActivity(Intent(this, HomePageActivity::class.java).putExtra("user", user))
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("Dailed", "signInWithCredential:failure", task.exception)
+                    }
+                }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                val account = task.getResult(ApiException::class.java)!!
+                Log.d("Success", "firebaseAuthWithGoogle:" + account.id)
+                firebaseAuthWithGoogle(account.idToken!!)
+            } catch (e: ApiException) {
+                // Google Sign In failed, update UI appropriately
+                Log.w("Failed", "Google sign in failed", e)
+            }
+        }
+    }
+
 
     private fun closeKeyboard(view: View){
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -72,15 +137,16 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent
             (this,HomePageActivity::class.java)
         )
-    
+    //Log.d("facebook", "Hi From Facebook")
+    }
 
 
-        //Log.d("facebook", "Hi From Facebook")
-    }
-    /* Login With Google Account*/
-    fun googleLoginOnClick(view: View) {
-        Log.d("google", "Hi From Google")
-    }
+
+
+
+
+
+
     /* Change Language To English */
     fun englishLanguageOnClick(view: View) {
         val btn = findViewById<ImageButton>(R.id.united_kingdom_icon)

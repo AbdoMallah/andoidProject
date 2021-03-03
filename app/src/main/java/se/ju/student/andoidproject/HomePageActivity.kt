@@ -31,7 +31,7 @@ fun toSettingsActivityOnClick(view: View){
 
 }
 
-fun toHomePageActivityOnClick (view: View){
+fun toHomePageActivityOnClick(view: View){
     val btn = findViewById<Button>(R.id.home_button)
     btn.setOnClickListener{
         startActivity(Intent
