@@ -63,6 +63,7 @@
     <string name="location">Location:</string>
     <string name="date">Date:</string>
     <string name="notification">Notifications:</string>
+    <string name="sign_in_error">You have to sign in first to can use this function</string>
 
 
 </resources>
