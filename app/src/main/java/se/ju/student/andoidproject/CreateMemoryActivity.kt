@@ -3,25 +3,22 @@ package se.ju.student.andoidproject
 import android.Manifest
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
-import androidx.fragment.app.FragmentActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import java.io.File
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 class CreateMemoryActivity : AppCompatActivity() {
@@ -29,7 +26,8 @@ class CreateMemoryActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
      companion object{
          private  const val CAMERA_PERMISSION_CODE = 1
-         private const val CAMERA_REQUEST_CODE = 2
+         private const val CAMERA_REQUEST_CODE : Int = 2
+
      }
     var db = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,12 +42,11 @@ class CreateMemoryActivity : AppCompatActivity() {
           if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
 
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(intent,CAMERA_REQUEST_CODE)
+            startActivityForResult(intent, CAMERA_REQUEST_CODE)
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
           }
         }
-
         galleryButton.setOnClickListener{
              startFileChooser()
         }
@@ -65,7 +62,7 @@ class CreateMemoryActivity : AppCompatActivity() {
         if (requestCode == CAMERA_PERMISSION_CODE){
             if (grantResults.isNotEmpty() && grantResults[0]== PackageManager.PERMISSION_GRANTED){
                 val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivityForResult(intent,CAMERA_REQUEST_CODE)
+                startActivityForResult(intent, CAMERA_REQUEST_CODE)
             }else{
                 Toast.makeText(baseContext, getString(R.string.sign_up_success), Toast.LENGTH_LONG).show()
             }
@@ -73,17 +70,33 @@ class CreateMemoryActivity : AppCompatActivity() {
     }
    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode== Activity.RESULT_OK ){
-                val imageFCamera = data!!.extras!!.get("data")as Bitmap
-                val imageView = findViewById<ImageView>(R.id.image_View)
-                imageView.setImageBitmap(imageFCamera)
-                Log.d("Camera OnActivutyREsult","IF call this function")
+        Log.d("MSD", requestCode.toString())
+        if (resultCode== Activity.RESULT_OK && requestCode == CAMERA_REQUEST_CODE && data != null ){
 
-
+            val imageFCamera = data.extras!!.get("data") as Bitmap
+            val imageView = findViewById<ImageView>(R.id.image_View)
+            filepath = getImageUriFromBitmap(this, imageFCamera)
+             imageView.setImageURI(filepath)
+           // imageView.background.setVisibility(View.GONE)
+            Log.d("Camera OnActivutyREsult", "IF call this function" + filepath.toString() + "this the filepath ")
 
         }
+       if (requestCode==111 && resultCode== Activity.RESULT_OK && data != null){
+           filepath = data.data!!
+           var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filepath)
+           val imageView = findViewById<ImageView>(R.id.image_View)
+           imageView.setImageURI(filepath)
+       }
+
 
     }
+    private fun getImageUriFromBitmap(context: Context, bitmap: Bitmap): Uri{
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 1024, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
+        return Uri.parse(path.toString())
+    }
+
    private fun uploadImage() {
         if(auth.currentUser == null){
             Toast.makeText(baseContext, getString(R.string.sign_in_error), Toast.LENGTH_LONG).show()
@@ -96,21 +109,21 @@ class CreateMemoryActivity : AppCompatActivity() {
                 val imgageName = UUID.randomUUID().toString()
                 var imageRef= FirebaseStorage.getInstance().reference.child("images/$userId/$imgageName")
                 imageRef.putFile(filepath)
-                        .addOnSuccessListener {po ->
+                        .addOnSuccessListener { po ->
                             pd.dismiss()
-                            Toast.makeText(applicationContext,"File Uploaded",Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, "File Uploaded", Toast.LENGTH_LONG).show()
                             imageRef.downloadUrl.addOnSuccessListener {
                                 var imagePath = it.toString()
-                                Log.d("UploadFile","fileLocation:$it")
+                                Log.d("UploadFile", "fileLocation:$it")
                             }
                             setContentView(R.layout.activity_home_page)
 
                         }
-                        .addOnFailureListener{to ->
+                        .addOnFailureListener{ to ->
                             pd.dismiss()
-                            Toast.makeText(applicationContext,to.message,Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, to.message, Toast.LENGTH_LONG).show()
                         }
-                        .addOnProgressListener {to ->
+                        .addOnProgressListener { to ->
                             val progress : Double =(1000.0 * to.bytesTransferred)/ to.totalByteCount
                             pd.setMessage("Uploaded ${progress.toInt()} % ")
 
@@ -121,7 +134,7 @@ class CreateMemoryActivity : AppCompatActivity() {
     }
 
     private fun saveMemoryDetailsToFirebaseCloudFirestore() {
-        val userId = auth.currentUser.uid
+        val user = auth.currentUser
         val titleInput = findViewById<EditText>(R.id.title_input)
         val descriptionInput = findViewById<EditText>(R.id.description_input)
         val dateInput = findViewById<EditText>(R.id.date_input)
@@ -129,8 +142,11 @@ class CreateMemoryActivity : AppCompatActivity() {
         val locationInput = findViewById<EditText>(R.id.location_input)
         val memoryId = UUID.randomUUID().toString()
 
-        if (auth.currentUser == null) {
+        if (user == null) {
             Toast.makeText(baseContext, getString(R.string.sign_in_error), Toast.LENGTH_LONG).show()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
 
         }else{
 
@@ -144,7 +160,7 @@ class CreateMemoryActivity : AppCompatActivity() {
             memory["MemoryId"] = memoryId
 
             // Add a new document with a generated ID
-            db.collection("memorys").document("memory/$userId/$memoryId")
+            db.collection("memorys").document("memory/${user.uid}/$memoryId")
                     .set(memory)
                     .addOnSuccessListener {
                         Log.d("Helllo", "DIt Works upploda to memory")
@@ -154,22 +170,11 @@ class CreateMemoryActivity : AppCompatActivity() {
                     }
         }
     }
-
-
     private fun startFileChooser() {
         var intent = Intent()
         intent .setType("image/*")
         intent.setAction(Intent.ACTION_GET_CONTENT)
-        startActivityForResult(Intent.createChooser(intent, "Choose Picture"),111)
+        startActivityForResult(Intent.createChooser(intent, "Choose Picture"), 111)
     }
-   /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode==111 && resultCode== Activity.RESULT_OK && data != null){
-            filepath = data.data!!
-        }
-        var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filepath)
-        val imageView = findViewById<ImageView>(R.id.image_View)
-        imageView.setImageBitmap(bitmap)
-    }*/
 
 }
