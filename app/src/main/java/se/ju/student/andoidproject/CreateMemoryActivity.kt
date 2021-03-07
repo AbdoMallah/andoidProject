@@ -38,7 +38,7 @@ class CreateMemoryActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var locationRequest: LocationRequest
-    val calendar = Calendar.getInstance()
+
     var db = FirebaseFirestore.getInstance()
 
      companion object{
@@ -57,14 +57,6 @@ class CreateMemoryActivity : AppCompatActivity() {
         val cameraButton = findViewById<ImageButton>(R.id.camera_image_Button)
         val galleryButton = findViewById<ImageButton>(R.id.gallery_image_Button)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-         val dateSetListener = object : DatePickerDialog.OnDateSetListener{
-          override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-              calendar.set(Calendar.YEAR, year)
-              calendar.set(Calendar.MONTH, month)
-              calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-              updateDateInView()
-           }
-         }
         val dateButton = findViewById<Button>(R.id.date_Button)
         val locationButton = findViewById<Button>(R.id.location_Button)
 
@@ -80,12 +72,7 @@ class CreateMemoryActivity : AppCompatActivity() {
 
 
         dateButton.setOnClickListener {
-            DatePickerDialog(
-                this@CreateMemoryActivity, dateSetListener,
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)
-            ).show()
+            showDatePickerDialog()
         }
         cameraButton.setOnClickListener{
           if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
@@ -109,6 +96,17 @@ class CreateMemoryActivity : AppCompatActivity() {
             saveMemoryDetailsToFirebaseCloudFirestore()
         }
     }
+
+    private fun showDatePickerDialog() {
+        val datePicker = DatePickerFragment { day, month, year -> onDateSelected(day, month, year) }
+        datePicker.show(supportFragmentManager,"datePicker")
+    }
+    fun onDateSelected(day:Int, month : Int,year :Int){
+        val dateTextView = findViewById<TextView>(R.id.date_input)
+        dateTextView.setText("$day,$month,$year")
+
+    }
+
     @SuppressLint("MissingPermission")
     fun getLastLocation(){
         if(checkPermission()){
@@ -171,12 +169,6 @@ class CreateMemoryActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateDateInView() {
-        val myFormat = "D/MM/YYYY"
-        val sdf = SimpleDateFormat(myFormat, Locale.FRANCE)
-        val dateTextView = findViewById<TextView>(R.id.date_input)
-        dateTextView.text=sdf.format(calendar.time)
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
