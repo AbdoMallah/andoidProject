@@ -5,73 +5,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".MainActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".MainActivity">
 
         <ImageView
             android:id="@+id/logo_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_memory_keeper_logo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/logo_description"
             app:layout_constraintBottom_toTopOf="@+id/login_linear_layout"
-            android:contentDescription="@string/logo_description" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:id="@+id/login_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logo_image_view"
-            app:layout_constraintBottom_toTopOf="@+id/login_checkbox"
+            android:layout_margin="5dp"
             android:orientation="vertical"
-            android:layout_margin="5dp">
+            app:layout_constraintBottom_toTopOf="@+id/login_checkbox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo_image_view">
 
 
             <TextView
                 android:id="@+id/email_texT_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/logo_image_view"
-                app:layout_constraintBottom_toBottomOf="@id/email_input"
                 android:text="@string/email"
-                />
+                app:layout_constraintBottom_toBottomOf="@id/email_input"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logo_image_view" />
+
             <EditText
                 android:id="@+id/email_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email_texT_view"
+                android:background="@drawable/edit_text_border"
                 android:hint="@string/email_hint"
                 android:inputType="textEmailAddress"
-                android:background="@drawable/edit_text_border"
                 android:padding="10dp"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_texT_view" />
+
             <TextView
                 android:id="@+id/password_texT_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email_input"
                 android:text="@string/password"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_input" />
+
             <EditText
                 android:id="@+id/password_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password_texT_view"
+                android:background="@drawable/edit_text_border"
                 android:hint="@string/password_hint"
                 android:inputType="textPassword"
-                android:background="@drawable/edit_text_border"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_texT_view" />
 
         </LinearLayout>
 
@@ -79,144 +80,151 @@
             android:id="@+id/login_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/login_linear_layout"
             app:layout_constraintBottom_toTopOf="@+id/login_button"
             app:layout_constraintEnd_toStartOf="@id/checkbox_text_view"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/login_linear_layout" />
+
         <TextView
             android:id="@+id/checkbox_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_linear_layout"
-            app:layout_constraintBottom_toTopOf="@+id/login_button"
-            app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/keep_me_logged_in"
             android:textSize="20sp"
-            />
+            app:layout_constraintBottom_toTopOf="@+id/login_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_linear_layout" />
+
         <Button
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_button"
-            app:layout_constraintTop_toBottomOf="@+id/login_checkbox"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_checkbox" />
+
         <Button
             android:id="@+id/new_user_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_button"
-            app:layout_constraintBottom_toTopOf="@+id/forget_password_text_view"
-            app:cornerRadius="10dp"
+            android:layout_margin="5dp"
+            android:onClick="toCreateAccountActivityOnClick"
+            android:padding="5dp"
             android:text="@string/sign_up_button"
             android:textSize="15sp"
-            android:onClick="toCreateAccountActivityOnClick"
-            tools:ignore="OnClick"
-            android:layout_margin="5dp"
-            android:padding="5dp"/>
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/forget_password_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_button"
+            tools:ignore="OnClick" />
+
         <TextView
             android:id="@+id/forget_password_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/new_user_button"
-            android:text="@string/forget_password_text_view"
-            android:textSize="15sp"
-            android:onClick="toForgetPasswordActivity"
-            tools:ignore="OnClick"
-            android:textColor="@color/blue"
             android:layout_margin="5dp"
-            android:padding="5dp"/>
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="30dp"
-                android:layout_gravity="center"
-                android:layout_margin="50dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/forget_password_text_view"
-                android:id="@+id/google_icon"
-                android:onClick="googleLoginOnClick"
-                tools:ignore="OnClick">
+            android:onClick="toForgetPasswordActivity"
+            android:padding="5dp"
+            android:text="@string/forget_password_text_view"
+            android:textColor="@color/blue"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/new_user_button"
+            tools:ignore="OnClick" />
 
-                <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/google_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="50dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="googleLoginOnClick"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forget_password_text_view"
+            tools:ignore="OnClick">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:background="@android:color/black"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="start"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/ic_google" />
+
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/black"
-                    android:padding="10dp">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Sign in with Google"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="start"
-                        android:src="@drawable/ic_google"
-                        android:layout_marginEnd="5dp"/>
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="Sign in with Google"
-                        android:textAlignment="center"
-                        android:textSize="16sp"
-                        android:textColor="@android:color/white"/>
+        </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
+        <ImageButton
+            android:id="@+id/facebook_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/ic_facebook"
+            android:contentDescription="@string/login_with_facebook_account"
+            android:onClick="facebookLoginOnClick"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/google_icon"
+            tools:ignore="OnClick" />
 
-            </androidx.cardview.widget.CardView>
-    <ImageButton
-        android:id="@+id/facebook_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_facebook"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/google_icon"
-        android:layout_margin="5dp"
-        android:onClick="facebookLoginOnClick"
-        tools:ignore="OnClick"
-        android:contentDescription="@string/login_with_facebook_account" />
         <LinearLayout
             android:id="@+id/language_linear_layout"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="25dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/facebook_icon"
-            android:layout_margin="25dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/facebook_icon">
+
             <ImageButton
                 android:id="@+id/sweden_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_sweden"
                 android:layout_margin="5dp"
+                android:background="@drawable/ic_sweden"
+                android:contentDescription="@string/change_language_to_swedish"
                 android:onClick="swedenLanguageOnClick"
-                tools:ignore="OnClick"
-                android:contentDescription="@string/change_language_to_swedish" />
+                tools:ignore="OnClick" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/slash"
-                android:textSize="30sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+
             <ImageButton
                 android:id="@+id/united_kingdom_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_united_kingdom"
                 android:layout_margin="5dp"
+                android:background="@drawable/ic_united_kingdom"
+                android:contentDescription="@string/change_language_to_english"
                 android:onClick="englishLanguageOnClick"
-                tools:ignore="OnClick"
-                android:contentDescription="@string/change_language_to_english" />
+                tools:ignore="OnClick" />
         </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

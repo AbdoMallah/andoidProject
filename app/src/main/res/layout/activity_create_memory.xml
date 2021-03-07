@@ -87,6 +87,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/location_texT_view" />
 
+
+            <Button
+                android:id="@+id/location_Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
             <TextView
                 android:id="@+id/date_texT_view"
                 android:layout_width="match_parent"
@@ -99,9 +106,18 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_border"
                 android:padding="10dp"
+              android:hint= "20201-02-29"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/date_texT_view" />
+
+
+            <Button
+                android:id="@+id/date_Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
 
             <TextView
                 android:id="@+id/notification_texT_view"

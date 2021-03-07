@@ -1,50 +1,103 @@
 package se.ju.student.andoidproject
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
+
+
 
 class CreateMemoryActivity : AppCompatActivity() {
     lateinit var filepath : Uri
     private lateinit var auth: FirebaseAuth
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    lateinit var locationRequest: LocationRequest
+    val calendar = Calendar.getInstance()
+    var db = FirebaseFirestore.getInstance()
+
      companion object{
          private  const val CAMERA_PERMISSION_CODE = 1
          private const val CAMERA_REQUEST_CODE : Int = 2
-
+         private const val PERMISSION_ID =200
      }
-    var db = FirebaseFirestore.getInstance()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_memory)
         supportActionBar?.hide()
+
         auth = FirebaseAuth.getInstance()
         val cameraButton = findViewById<ImageButton>(R.id.camera_image_Button)
         val galleryButton = findViewById<ImageButton>(R.id.gallery_image_Button)
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+         val dateSetListener = object : DatePickerDialog.OnDateSetListener{
+          override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+              calendar.set(Calendar.YEAR, year)
+              calendar.set(Calendar.MONTH, month)
+              calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+              updateDateInView()
+           }
+         }
+        val dateButton = findViewById<Button>(R.id.date_Button)
+        val locationButton = findViewById<Button>(R.id.location_Button)
 
+        locationButton.setOnClickListener{
+            Log.d("Debug:", checkPermission().toString())
+            Log.d("Debug:", isLocationEnabled().toString())
+            requestPermission()
+            /* fusedLocationProviderClient.lastLocation.addOnSuccessListener{location: Location? ->
+                 textView.text = location?.latitude.toString() + "," + location?.longitude.toString()
+             }*/
+            getLastLocation()
+        }
+
+
+        dateButton.setOnClickListener {
+            DatePickerDialog(
+                this@CreateMemoryActivity, dateSetListener,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)
+            ).show()
+        }
         cameraButton.setOnClickListener{
           if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
 
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(intent, CAMERA_REQUEST_CODE)
         } else {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.CAMERA),
+                CAMERA_PERMISSION_CODE
+            )
           }
         }
         galleryButton.setOnClickListener{
@@ -56,8 +109,80 @@ class CreateMemoryActivity : AppCompatActivity() {
             saveMemoryDetailsToFirebaseCloudFirestore()
         }
     }
+    @SuppressLint("MissingPermission")
+    fun getLastLocation(){
+        if(checkPermission()){
+            if(isLocationEnabled()){
+                fusedLocationProviderClient.lastLocation.addOnCompleteListener { task->
+                    var location:Location? = task.result
+                    if(location == null){
+                        NewLocationData()
+                    }else{
+                        Log.d("Debug:", "Your Location:" + location.longitude + location.latitude)
+                        val latitude_input= location.latitude
+                        val longitude_input = location.longitude
+                        val location = findViewById<TextView>(R.id.location_input)
+                        location.text =  getCityName(latitude_input, longitude_input)
+                    }
+                }
+            }else{
+                Toast.makeText(this, "Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
+            }
+        }else{
+            requestPermission()
+        }
+    }
 
-   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    fun NewLocationData(){
+        var locationRequest =  LocationRequest()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 0
+        locationRequest.fastestInterval = 0
+        locationRequest.numUpdates = 1
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationProviderClient!!.requestLocationUpdates(
+                locationRequest, locationCallback, Looper.myLooper()
+            )
+            return
+        }
+
+    }
+
+
+
+    private val locationCallback = object : LocationCallback(){
+        @SuppressLint("SetTextI18n")
+        override fun onLocationResult(locationResult: LocationResult) {
+            var lastLocation: Location = locationResult.lastLocation
+            Log.d("Debug:", "your last last location: " + lastLocation.longitude.toString())
+            val location = findViewById<TextView>(R.id.location_input)
+            location.text = "You Last Location is : Long: "+ lastLocation.longitude + " , Lat: " + lastLocation.latitude + "\n" + getCityName(
+                lastLocation.latitude,
+                lastLocation.longitude
+            )
+        }
+    }
+
+    private fun updateDateInView() {
+        val myFormat = "D/MM/YYYY"
+        val sdf = SimpleDateFormat(myFormat, Locale.FRANCE)
+        val dateTextView = findViewById<TextView>(R.id.date_input)
+        dateTextView.text=sdf.format(calendar.time)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CAMERA_PERMISSION_CODE){
             if (grantResults.isNotEmpty() && grantResults[0]== PackageManager.PERMISSION_GRANTED){
@@ -65,6 +190,11 @@ class CreateMemoryActivity : AppCompatActivity() {
                 startActivityForResult(intent, CAMERA_REQUEST_CODE)
             }else{
                 Toast.makeText(baseContext, getString(R.string.sign_up_success), Toast.LENGTH_LONG).show()
+            }
+        }
+        if(requestCode == PERMISSION_ID){
+            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Log.d("Debug:", "You have the Permission For GPS")
             }
         }
     }
@@ -78,7 +208,10 @@ class CreateMemoryActivity : AppCompatActivity() {
             filepath = getImageUriFromBitmap(this, imageFCamera)
              imageView.setImageURI(filepath)
            // imageView.background.setVisibility(View.GONE)
-            Log.d("Camera OnActivutyREsult", "IF call this function" + filepath.toString() + "this the filepath ")
+            Log.d(
+                "Camera OnActivutyREsult",
+                "IF call this function" + filepath.toString() + "this the filepath "
+            )
 
         }
        if (requestCode==111 && resultCode== Activity.RESULT_OK && data != null){
@@ -92,8 +225,13 @@ class CreateMemoryActivity : AppCompatActivity() {
     }
     private fun getImageUriFromBitmap(context: Context, bitmap: Bitmap): Uri{
         val bytes = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 1024, bytes)
-        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(
+            context.contentResolver,
+            bitmap,
+            "Title",
+            null
+        )
         return Uri.parse(path.toString())
     }
 
@@ -132,6 +270,7 @@ class CreateMemoryActivity : AppCompatActivity() {
               }
          }
     }
+
 
     private fun saveMemoryDetailsToFirebaseCloudFirestore() {
         val user = auth.currentUser
@@ -172,9 +311,82 @@ class CreateMemoryActivity : AppCompatActivity() {
     }
     private fun startFileChooser() {
         var intent = Intent()
-        intent .setType("image/*")
-        intent.setAction(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(Intent.createChooser(intent, "Choose Picture"), 111)
     }
 
+
+
+    private fun checkPermission():Boolean{
+        //this function will return a boolean
+        //true: if we have permission
+        //false if not
+        if(
+            ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED ||
+            ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ){
+            return true
+        }
+
+        return false
+
+    }
+    private fun requestPermission(){
+        //this function will allows us to tell the user to requesut the necessary permsiion if they are not garented
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ),
+            PERMISSION_ID
+        )
+    }
+    private fun isLocationEnabled():Boolean{
+        //this function will return to us the state of the location service
+        //if the gps or the network provider is enabled then it will return true otherwise it will return false
+        var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
+
+    @Throws(IOException::class)
+    private fun getCityNameByCoordinates(lat: Double, lon: Double): String? {
+        var geoCoder = Geocoder(this, Locale.getDefault())
+        val addresses: List<Address> = geoCoder.getFromLocation(lat, lon, 10)
+        if (addresses != null && addresses.isNotEmpty()) {
+            for (adr in addresses) {
+                if (adr.locality != null && adr.locality.isNotEmpty()) {
+                    return adr.locality
+                }
+            }
+        }
+        return null
+    }
+
+
+
+    private fun getCityName(lat: Double, long: Double):String {
+        var cityName: String = ""
+        var countryName: String = ""
+        var geoCoder = Geocoder(this, Locale.getDefault())
+        var adress = geoCoder.getFromLocation(lat, long, 3)
+        cityName = getCityNameByCoordinates(lat,long).toString()
+        countryName = adress[0].countryName
+        Log.d(
+            "Debug:",
+            """Your City": $cityName ; your Country ${adress.get(0).countryName}"""
+        )
+
+        return cityName + " , " +countryName
+    }
 }
+
