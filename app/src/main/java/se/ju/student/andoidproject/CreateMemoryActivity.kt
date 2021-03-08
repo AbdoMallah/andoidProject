@@ -3,7 +3,6 @@ package se.ju.student.andoidproject
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -18,6 +17,7 @@ import android.os.Bundle
 import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -28,18 +28,21 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.jvm.Throws
 
 
-
-class CreateMemoryActivity : AppCompatActivity() {
+class CreateMemoryActivity : AppCompatActivity(),
+    AdapterView.OnItemSelectedListener {
+    private  var spinner : Spinner ? = null
+    private  var arrayAdapter :ArrayAdapter<String> ? = null
+    private  var itemList = arrayOf("never","One Mothn"," three Month"," six Month","One Year")
     lateinit var filepath : Uri
     private lateinit var auth: FirebaseAuth
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var locationRequest: LocationRequest
-
     var db = FirebaseFirestore.getInstance()
+    private lateinit var spinnerNofitication : Spinner
 
      companion object{
          private  const val CAMERA_PERMISSION_CODE = 1
@@ -52,11 +55,24 @@ class CreateMemoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_memory)
         supportActionBar?.hide()
-
         auth = FirebaseAuth.getInstance()
+
+
         val cameraButton = findViewById<ImageButton>(R.id.camera_image_Button)
         val galleryButton = findViewById<ImageButton>(R.id.gallery_image_Button)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        val notificationInput = findViewById<EditText>(R.id.notification_input)
+        val spinner = findViewById<Spinner>(R.id.notification_List)
+        arrayAdapter = ArrayAdapter(applicationContext,android.R.layout.simple_list_item_1,itemList)
+        spinner.adapter = arrayAdapter
+        spinner?.onItemSelectedListener = this
+
+
+
+
+
+
+
         val dateButton = findViewById<Button>(R.id.date_Button)
         val locationButton = findViewById<Button>(R.id.location_Button)
 
@@ -74,6 +90,8 @@ class CreateMemoryActivity : AppCompatActivity() {
         dateButton.setOnClickListener {
             showDatePickerDialog()
         }
+
+
         cameraButton.setOnClickListener{
           if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
 
@@ -96,14 +114,24 @@ class CreateMemoryActivity : AppCompatActivity() {
             saveMemoryDetailsToFirebaseCloudFirestore()
         }
     }
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val items:String = parent?.getItemAtPosition(position)as String
+        val notificationInput = findViewById<EditText>(R.id.notification_input)
+        notificationInput.setText ("$items")
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        Toast.makeText(applicationContext ,"Nothing Select",Toast.LENGTH_LONG).show()    }
+
+
 
     private fun showDatePickerDialog() {
         val datePicker = DatePickerFragment { day, month, year -> onDateSelected(day, month, year) }
         datePicker.show(supportFragmentManager,"datePicker")
     }
-    fun onDateSelected(day:Int, month : Int,year :Int){
+    private fun onDateSelected(day:Int, month : Int, year :Int){
         val dateTextView = findViewById<TextView>(R.id.date_input)
-        dateTextView.setText("$day,$month,$year")
+        dateTextView.setText("$day,${month+1 },$year")
 
     }
 
@@ -269,7 +297,7 @@ class CreateMemoryActivity : AppCompatActivity() {
         val titleInput = findViewById<EditText>(R.id.title_input)
         val descriptionInput = findViewById<EditText>(R.id.description_input)
         val dateInput = findViewById<EditText>(R.id.date_input)
-        val notificationInput = findViewById<EditText>(R.id.notification_input)
+        val notificationInput = findViewById<EditText>(R.id.notification_input )
         val locationInput = findViewById<EditText>(R.id.location_input)
         val memoryId = UUID.randomUUID().toString()
 

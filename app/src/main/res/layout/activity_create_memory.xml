@@ -71,6 +71,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description_texT_view" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+
+
+
+
+
+
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/location_texT_view"
                 android:layout_width="match_parent"
@@ -134,6 +148,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/notification_texT_view" />
+
+
+            <Spinner
+                android:id="@+id/notification_List"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Notification"
+                android:layout_gravity="center"
+                />
 
             <ImageView
                 android:id="@+id/image_View"
