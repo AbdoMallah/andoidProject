@@ -43,7 +43,18 @@
     <string name="light_dark_mode">Ljust/Mörkt läge</string>
     <string name="change_mode_to_light">Byt läge till ljust</string>
     <string name="change_mode_to_dark">Byt läge till mörkt</string>
-
+    <string name="date_hint">29-02-2021</string>
+    <string name="enter_your_email_text">Mata in ditt mejl tack!</string>
+    <string name="reset_password">Återställ lösenordet</string>
+    <string name="forget_password_success">"En återställnings länk har skickat till dit mejl "</string>
+    <string name="page_title">Skapa ett mine</string>
+    <string name="title">Titeln:</string>
+    <string name="description">Beskrivning:</string>
+    <string name="location">Plats:</string>
+    <string name="date">"Datum: "</string>
+    <string name="notification">Notifikation</string>
+    <string name="sign_in_error">Du måste logga in för få använda den här funktionen</string>
+    <string name="notification_hint">En månad</string>
 
 
 </resources>

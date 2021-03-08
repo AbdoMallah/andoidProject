@@ -1,0 +1,120 @@
+<ScrollView    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".HomePageActivity"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/language_linear_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="40dp"
+            android:layout_marginEnd="113dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/language_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change_language"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent" />
+            <ImageButton
+                android:id="@+id/sweden_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_sweden"
+                android:contentDescription="@string/change_language_to_swedish"
+                android:onClick="swedenLanguageOnClick"
+                tools:ignore="OnClick" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/slash"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+
+            <ImageButton
+                android:id="@+id/united_kingdom_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_united_kingdom"
+                android:contentDescription="@string/change_language_to_english"
+                android:onClick="englishLanguageOnClick"
+                tools:ignore="OnClick" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/light_dark_linear_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="40dp"
+            android:layout_marginEnd="113dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/language_linear_layout">
+
+            <TextView
+                android:id="@+id/light_dark_mode_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/light_dark_mode"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageButton
+                android:id="@+id/light_mode_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_sweden"
+                android:contentDescription="@string/change_mode_to_light"
+                android:onClick="lightModeOnClick"
+                tools:ignore="OnClick" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/slash"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+
+            <ImageButton
+                android:id="@+id/dark_mode_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_united_kingdom"
+                android:contentDescription="@string/change_mode_to_dark"
+                android:onClick="darkModeOnClick"
+                tools:ignore="OnClick" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/light_dark_linear_layout"
+            android:onClick="button1"
+            tools:ignore="OnClick"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

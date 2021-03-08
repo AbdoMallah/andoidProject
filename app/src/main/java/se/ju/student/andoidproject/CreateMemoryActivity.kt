@@ -22,12 +22,12 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import com.google.android.gms.location.*
 import java.util.*
 import kotlin.jvm.Throws
 
@@ -36,7 +36,7 @@ class CreateMemoryActivity : AppCompatActivity(),
     AdapterView.OnItemSelectedListener {
     private  var spinner : Spinner ? = null
     private  var arrayAdapter :ArrayAdapter<String> ? = null
-    private  var itemList = arrayOf("never","One Mothn"," three Month"," six Month","One Year")
+    private  var itemList = arrayOf("", "never","One Mothn"," three Month"," six Month","One Year")
     lateinit var filepath : Uri
     private lateinit var auth: FirebaseAuth
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -73,8 +73,8 @@ class CreateMemoryActivity : AppCompatActivity(),
 
 
 
-        val dateButton = findViewById<Button>(R.id.date_Button)
-        val locationButton = findViewById<Button>(R.id.location_Button)
+        val dateButton = findViewById<ImageButton>(R.id.date_Button)
+        val locationButton = findViewById<ImageButton>(R.id.location_Button)
 
         locationButton.setOnClickListener{
             Log.d("Debug:", checkPermission().toString())
@@ -221,7 +221,7 @@ class CreateMemoryActivity : AppCompatActivity(),
    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d("MSD", requestCode.toString())
-        if (resultCode== Activity.RESULT_OK && requestCode == CAMERA_REQUEST_CODE && data != null ){
+        if (resultCode== RESULT_OK && requestCode == CAMERA_REQUEST_CODE && data != null ){
 
             val imageFCamera = data.extras!!.get("data") as Bitmap
             val imageView = findViewById<ImageView>(R.id.image_View)
@@ -234,7 +234,7 @@ class CreateMemoryActivity : AppCompatActivity(),
             )
 
         }
-       if (requestCode==111 && resultCode== Activity.RESULT_OK && data != null){
+       if (requestCode==111 && resultCode== RESULT_OK && data != null){
            filepath = data.data!!
            var bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filepath)
            val imageView = findViewById<ImageView>(R.id.image_View)
@@ -345,11 +345,11 @@ class CreateMemoryActivity : AppCompatActivity(),
         if(
             ActivityCompat.checkSelfPermission(
                 this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED ||
             ActivityCompat.checkSelfPermission(
                 this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ){
             return true
@@ -363,8 +363,8 @@ class CreateMemoryActivity : AppCompatActivity(),
         ActivityCompat.requestPermissions(
             this,
             arrayOf(
-                android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
             ),
             PERMISSION_ID
         )
@@ -372,7 +372,7 @@ class CreateMemoryActivity : AppCompatActivity(),
     private fun isLocationEnabled():Boolean{
         //this function will return to us the state of the location service
         //if the gps or the network provider is enabled then it will return true otherwise it will return false
-        var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        var locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
