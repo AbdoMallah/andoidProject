@@ -16,16 +16,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndoidProject"
         tools:ignore="AllowBackup">
+        <activity android:name=".SingleRow"></activity>
+
         <provider
-            android:authorities="edu.stanford.rkpandey.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="edu.stanford.rkpandey.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/fileprovider" />
         </provider>
-        <activity android:name=".ForgotPasswordActivity"/>
+
+        <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".UpdateMemoryActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".CreateMemoryActivity" />
