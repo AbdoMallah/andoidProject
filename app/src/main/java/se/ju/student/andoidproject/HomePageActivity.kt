@@ -17,7 +17,7 @@ class HomePageActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val firstFragment = HomeFragment()
-        val secondFragment=AddFragment()
+//        val secondFragment=AddFragment()
         val thirdFragment=SettingFragment()
 
         setCurrentFragment(firstFragment)
@@ -25,7 +25,7 @@ class HomePageActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home_button->setCurrentFragment(firstFragment)
-                R.id.add_button->setCurrentFragment(secondFragment)
+                R.id.add_button->startCreateMemoryActivity()
                 R.id.settings_button->setCurrentFragment(thirdFragment)
             }
             true
@@ -33,6 +33,10 @@ class HomePageActivity : AppCompatActivity() {
 
     }
 
+    private fun startCreateMemoryActivity(){
+        startActivity(Intent(this, CreateMemoryActivity::class.java))
+        finish()
+    }
     private fun setCurrentFragment(fragment: Fragment)=
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment,fragment)
