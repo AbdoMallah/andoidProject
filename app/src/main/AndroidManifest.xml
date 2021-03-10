@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndoidProject"
         tools:ignore="AllowBackup">
-        <activity android:name=".SingleRow"></activity>
+        <activity android:name=".MemoryViewActivity"></activity>
+        <activity android:name=".SingleRow" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
