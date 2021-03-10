@@ -17,43 +17,42 @@
             android:layout_height="80dp"
             android:src="@mipmap/ic_launcher"
             android:layout_centerVertical="true"
-            android:id="@+id/img1"
-
+            android:id="@+id/fragment_image_container"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/nametext"
-            android:text="This is Demo Name"
+            android:id="@+id/fragment_title_text_view"
+            android:text="This is Demo title"
             android:textStyle="bold"
             android:textSize="25sp"
             android:textColor="#000"
-            android:layout_toRightOf="@id/img1"
-            android:layout_marginLeft="10dp"/>
+            android:layout_toEndOf="@id/fragment_image_container"
+            android:layout_marginStart="10dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/coursetext"
-            android:text="This is Course Name"
+            android:id="@+id/fragment_location_text_view"
+            android:text="this is location"
             android:textSize="25sp"
             android:textColor="#000"
-            android:layout_toRightOf="@id/img1"
-            android:layout_below="@id/nametext"
-            android:layout_marginLeft="10dp"/>
+            android:layout_toEndOf="@id/fragment_image_container"
+            android:layout_below="@id/fragment_title_text_view"
+            android:layout_marginStart="10dp"/>
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/emailtext"
+            android:id="@+id/fragment_date_text_view"
             android:text="This is Email Name"
             android:textSize="25sp"
             android:textColor="#000"
-            android:layout_toRightOf="@id/img1"
-            android:layout_below="@id/coursetext"
-            android:layout_marginLeft="10dp"/>
+            android:layout_toEndOf="@id/fragment_image_container"
+            android:layout_below="@id/fragment_location_text_view"
+            android:layout_marginStart="10dp"/>
 
 
     </RelativeLayout>

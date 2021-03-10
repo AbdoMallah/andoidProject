@@ -16,17 +16,17 @@ class HomePageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home_page)
         supportActionBar?.hide()
 
-        val firstFragment = HomeFragment()
+        val homeFragment = HomeFragment()
 //        val secondFragment=AddFragment()
-        val thirdFragment=SettingFragment()
+        val settingFragment=SettingFragment()
 
-        setCurrentFragment(firstFragment)
+        setCurrentFragment(homeFragment)
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.home_button->setCurrentFragment(firstFragment)
+                R.id.home_button->setCurrentFragment(homeFragment)
                 R.id.add_button->startCreateMemoryActivity()
-                R.id.settings_button->setCurrentFragment(thirdFragment)
+                R.id.settings_button->setCurrentFragment(settingFragment)
             }
             true
         }
