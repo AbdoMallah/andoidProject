@@ -8,42 +8,58 @@ import android.util.Log
 import android.widget.Button
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import se.ju.student.andoidproject.databinding.ActivityHomePageBinding
 
 class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home_page)
         supportActionBar?.hide()
+        val binding = ActivityHomePageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val homeFragment = HomeFragment()
-//        val secondFragment=AddFragment()
-        val settingFragment=SettingFragment()
+        if(savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.frame_layout, SettingFragment(), TAG_FRAGMENT_COUNT_UP)
+                .add(R.id.frame_layout, NewestMemoryFragment(), TAG_FRAGMENT_HOME)
+                .commitNow()
+            changeToFragment(TAG_FRAGMENT_COUNT_UP)
+        }
 
-        setCurrentFragment(homeFragment)
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        bottomNavigationView.setOnNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.home_button->setCurrentFragment(homeFragment)
-                R.id.add_button->startCreateMemoryActivity()
-                R.id.settings_button->setCurrentFragment(settingFragment)
+
+        binding.settingButton.setOnClickListener {
+            changeToFragment(TAG_FRAGMENT_COUNT_UP)
+        }
+
+        binding.homeButton.setOnClickListener {
+            changeToFragment(TAG_FRAGMENT_HOME)
+        }
+
+    }
+
+    private fun changeToFragment(fragment_tag: String){
+
+        with(supportFragmentManager.beginTransaction()){
+
+            for(fragment in supportFragmentManager.fragments){
+                hide(fragment)
             }
-            true
-        }
 
-    }
+            show(supportFragmentManager.findFragmentByTag(fragment_tag)!!)
 
-    private fun startCreateMemoryActivity(){
-        startActivity(Intent(this, CreateMemoryActivity::class.java))
-        finish()
-    }
-    private fun setCurrentFragment(fragment: Fragment)=
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment,fragment)
             commit()
+
         }
 
-}
+
+    }
+
+    companion object {
+        const val TAG_FRAGMENT_COUNT_UP = "TAG_FRAGMENT_COUNT_UP"
+        const val TAG_FRAGMENT_HOME = "TAG_FRAGMENT_HOME"
+    }
+    }
+
 
 /*
 * val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

@@ -64,6 +64,9 @@
     <string name="sign_in_error">You have to sign in first to use this function</string>
     <string name="notification_hint">One month</string>
     <string name="date_hint">29-02-2021</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="newest_memories">Newest Memoties</string>
 
 
 </resources>

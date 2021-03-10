@@ -6,6 +6,6 @@ import android.os.Bundle
 class SingleRow : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_single_row)
+        setContentView(R.layout.layout_single_row)
     }
 }
