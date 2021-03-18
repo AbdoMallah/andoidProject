@@ -6,113 +6,192 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".HomePageActivity"
+        tools:context=".SettingFragment"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/language_linear_layout"
+
+
+        <TextView
+            android:id="@+id/language_text_view"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_margin="40dp"
-            android:layout_marginEnd="113dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/change_language"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/language_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/change_language"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent" />
-            <ImageButton
-                android:id="@+id/sweden_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/ic_sweden"
-                android:contentDescription="@string/change_language_to_swedish"
-                android:onClick="swedenLanguageOnClick"
-                tools:ignore="OnClick" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/slash"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
-
-            <ImageButton
-                android:id="@+id/united_kingdom_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/ic_united_kingdom"
-                android:contentDescription="@string/change_language_to_english"
-                android:onClick="englishLanguageOnClick"
-                tools:ignore="OnClick" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/light_dark_linear_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_margin="40dp"
-            android:layout_marginEnd="113dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/language_linear_layout">
-
-            <TextView
-                android:id="@+id/light_dark_mode_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/light_dark_mode"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <ImageButton
-                android:id="@+id/light_mode_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/ic_sweden"
-                android:contentDescription="@string/change_mode_to_light"
-                android:onClick="lightModeOnClick"
-                tools:ignore="OnClick" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/slash"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
-
-            <ImageButton
-                android:id="@+id/dark_mode_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/ic_united_kingdom"
-                android:contentDescription="@string/change_mode_to_dark"
-                android:onClick="darkModeOnClick"
-                tools:ignore="OnClick" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <Button
-            android:id="@+id/button"
+        <ImageButton
+            android:id="@+id/sweden_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="Button"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ic_sweden"
+            android:contentDescription="@string/change_language_to_swedish"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/slash"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@+id/united_kingdom_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/united_kingdom_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ic_united_kingdom"
+            android:contentDescription="@string/change_language_to_english"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/light_dark_mode_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/light_dark_mode"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/language_text_view" />
+
+
+        <ImageButton
+            android:id="@+id/light_mode_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ic_light_mode_foreground"
+            android:contentDescription="@string/change_mode_to_light"
+            app:layout_constraintEnd_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/sweden_icon"
+            />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/slash"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@+id/dark_mode_icon"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <ImageButton
+            android:id="@+id/dark_mode_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/ic_dark_mode_foreground"
+            android:contentDescription="@string/change_mode_to_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/united_kingdom_icon"
+            />
+
+        <TextView
+            android:id="@+id/support_ticket_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/support_ticket"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/light_dark_mode_text_view" />
+
+
+        <ImageButton
+            android:id="@+id/support_ticket_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="45dp"
+            android:background="@drawable/ic_support_ticket_foreground"
+            android:contentDescription="@string/support_ticket"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/light_mode_icon"
+            />
+
+
+
+        <TextView
+            android:id="@+id/about_us_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/about_us"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/support_ticket_text_view" />
+
+
+        <ImageButton
+            android:id="@+id/about_us_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:background="@drawable/ic_about_us_foreground"
+            android:contentDescription="@string/about_us"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/support_ticket_icon"
+            />
+
+
+
+        <TextView
+            android:id="@+id/change_password_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/change_password"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/about_us_text_view" />
+
+
+
+        <ImageButton
+            android:id="@+id/change_password_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:background="@drawable/ic_arrow_right_foreground"
+            android:contentDescription="@string/change_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/about_us_icon"
+            />
+
+        <ImageButton
+            android:id="@+id/logout_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/ic_logout_foreground"
+            android:contentDescription="@string/logout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/light_dark_linear_layout"
-            android:onClick="button1"
-            tools:ignore="OnClick"/>
+            app:layout_constraintTop_toBottomOf="@+id/change_password_icon"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

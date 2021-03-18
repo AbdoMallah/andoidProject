@@ -42,6 +42,7 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+
     /*
     * Change Language fun
     * setLocale(String)
