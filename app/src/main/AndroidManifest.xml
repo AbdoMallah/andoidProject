@@ -36,6 +36,9 @@
         <activity android:name=".HomePageActivity" />
         <activity android:name=".VerifyAccountActivity" />
         <activity android:name=".CreateAccountActivity" />
+        <activity android:name=".SupportTicketActivity" />
+        <activity android:name=".AboutUsActivity"/>
+        <activity android:name=".ChangePasswordActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

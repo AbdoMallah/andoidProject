@@ -12,9 +12,12 @@ import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import se.ju.student.andoidproject.databinding.ActivityHomePageBinding
+import se.ju.student.andoidproject.databinding.ActivitySettingsBinding
 import se.ju.student.andoidproject.databinding.FragmentSettingBinding
 import java.util.*
 
@@ -28,12 +31,12 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
     private var currentLanguage = ""
     private var currentLang: String? = null
 
-   /* override fun onCreate(savedInstanceState: Bundle?) {
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+       val binding = ActivitySettingsBinding.inflate(layoutInflater)
+       //setContentView(binding.root)
 
-       
-
-    }*/
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -44,34 +47,48 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
 
 
         val view = LayoutInflater.from(context).inflate(R.layout.fragment_setting, null, false)
-        binding = FragmentSettingBinding.inflate(layoutInflater)
 
 
 
          /* Change Language To Swedish */
-         binding.swedenIcon.setOnClickListener {
-             Log.d("Svenska", "Byt språk till svenska")
-             setLocale("sv")
-         }
+        binding.swedenIcon.setOnClickListener {
+            Log.d("Svenska", "Byt språk till svenska")
+            setLocale("sv")
+        }
 
 
-         /* Change Language To English */
-         binding.unitedKingdomIcon.setOnClickListener {
-             Log.d("English", "Change language to English")
-             setLocale("en")
-         }
+        /* Change Language To English */
+        binding.unitedKingdomIcon.setOnClickListener {
+            Log.d("English", "Change language to English")
+            setLocale("en")
+        }
 
-         binding.lightModeIcon.setOnClickListener {
-             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-             //delegate.applyDayNight()
-         }
+        binding.lightModeIcon.setOnClickListener {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            //delegate.applyDayNight()
+        }
 
-         binding.darkModeIcon.setOnClickListener {
-             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-             //delegate.applyDayNight()
-         }
+        binding.darkModeIcon.setOnClickListener {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
-         root
+            //delegate.applyDayNight()
+        }
+
+        binding.supportTicketIcon.setOnClickListener {
+            startActivity(Intent(context, SupportTicketActivity::class.java))
+
+        }
+
+        binding.aboutUsIcon.setOnClickListener{
+            startActivity(Intent(context, AboutUsActivity::class.java))
+        }
+
+        binding.changePasswordIcon.setOnClickListener {
+            startActivity(Intent(context, ChangePasswordActivity::class.java))
+        }
+
+
+        root
 
     }
 
@@ -102,7 +119,10 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
             )
             refresh.putExtra(currentLang, localeName)
             startActivity(refresh)
+
+
         } else {
+
             Toast.makeText(context, "Language, , already, , selected)!", Toast.LENGTH_SHORT).show()
             }
     }
